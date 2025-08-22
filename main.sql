@@ -21,7 +21,7 @@ CREATE TABLE collections (
     known_language_iso_639_1 VARCHAR(2),  
     learning_language_iso_639_1 VARCHAR(2),  
     owner_id BIGSERIAL NOT NULL,  
-    CONSTRAINT owner_id_fk FOREIGN KEY (owner_id) REFERENCES users(id)  
+    CONSTRAINT owner_id_fk FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE 
 );  
   
 -- Define cards table  
@@ -34,7 +34,7 @@ CREATE TABLE cards (
     show_next_time_at TIMESTAMP, 
     correct_answers_in_row INT DEFAULT 0 NOT NULL,  
     owner_id BIGINT NOT NULL,  
-    CONSTRAINT owner_id_fk FOREIGN KEY (owner_id) REFERENCES users(id)  
+    CONSTRAINT owner_id_fk FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Define examples table
@@ -43,7 +43,7 @@ CREATE TABLE examples (
     known_language_text TEXT NOT NULL,
     learning_language_text TEXT NOT NULL,
     card_id BIGSERIAL NOT NULL,
-    CONSTRAINT card_id_fk FOREIGN KEY (card_id) REFERENCES cards(id)
+    CONSTRAINT card_id_fk FOREIGN KEY (card_id) REFERENCES cards(id) ON DELETE CASCADE
 );
 
 -- Define a table of collection and card relationships
@@ -51,6 +51,6 @@ CREATE TABLE collections_cards (
     id BIGSERIAL PRIMARY KEY,
     collection_id BIGSERIAL NOT NULL,
     card_id BIGSERIAL NOT NULL,
-    CONSTRAINT collection_id_fk FOREIGN KEY (collection_id) REFERENCES collections(id),
-    CONSTRAINT card_id_fk FOREIGN KEY (card_id) REFERENCES cards(id)
+    CONSTRAINT collection_id_fk FOREIGN KEY (collection_id) REFERENCES collections(id) ON DELETE CASCADE,
+    CONSTRAINT card_id_fk FOREIGN KEY (card_id) REFERENCES cards(id) ON DELETE CASCADE
 );
